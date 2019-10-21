@@ -14,11 +14,13 @@ services:
 
   result:
     build: ./result
+    # gjnote: this is probably to override the CMD in Dockerfile. For easyier development locally
     command: nodemon server.js
     volumes:
       - ./result:/app
     ports:
       - "5001:80"
+      # gjnote: Q: What's this port 5858 for
       - "5858:5858"
     networks:
       - front-tier

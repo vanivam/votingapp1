@@ -9,6 +9,7 @@
     <meta name="author" content="Docker">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
+  <!-- gjnote: Angular component for the background and ontent of the voting result -->
   <body ng-controller="statsCtrl" >
      <div id="background-stats">
        <div id="background-stats-1">
@@ -23,6 +24,7 @@
         <div id="choice">
           <div class="choice cats">
             <div class="label">Cats</div>
+            <!-- gjnote: change voting content from the value defined in the scope. -->
             <div class="stat">{{aPercent | number:1}}%</div>
           </div>
           <div class="divider"></div>
@@ -43,6 +45,7 @@
       <span ng-if="total == 1">{{total}} vote</span>
       <span ng-if="total >= 2">{{total}} votes</span>
     </div>
+    <!-- gjnote: client side socket. After this line, var 'io' is available -->
     <script src="socket.io.js"></script>
     <script src="angular.min.js"></script>
     <script src="app.js"></script>

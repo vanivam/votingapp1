@@ -1,4 +1,5 @@
 var app = angular.module('catsvsdogs', []);
+// gjnote: client side socket code that connects to the 'polling' channel or something
 var socket = io.connect({transports:['polling']});
 
 var bg1 = document.getElementById('background-stats-1');
@@ -11,6 +12,8 @@ app.controller('statsCtrl', function($scope){
   $scope.cPercent = 33.34;
 
   var updateScores = function(){
+    // gjnote: when receiving 'scores' event from socket, update the scope (execution context)
+    // of the ng application 
     socket.on('scores', function (json) {
        data = JSON.parse(json);
        var a = parseInt(data.a || 0);
@@ -19,6 +22,7 @@ app.controller('statsCtrl', function($scope){
 
        var percentages = getPercentages(a, b, c);
 
+       // gjnote: modify the background width  
        bg1.style.width = percentages.a + "%";
        bg2.style.width = percentages.b + "%";
        bg3.style.width = percentages.c + "%";

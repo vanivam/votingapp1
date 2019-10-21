@@ -8,17 +8,23 @@ var express = require('express'),
     methodOverride = require('method-override'),
     app = express(),
     server = require('http').Server(app),
+    // gjnote: server side socket. 'io' is the socket server
     io = require('socket.io')(server);
 
 io.set('transports', ['polling']);
 
 var port = process.env.PORT || 4000;
 
+// gjnote: io.sockets is a namespace, the default namespace '/'.
+// The client connects to this namespace by default.
+//   https://socket.io/docs/rooms-and-namespaces/
 io.sockets.on('connection', function (socket) {
 
   socket.emit('message', { text : 'Welcome!' });
 
   socket.on('subscribe', function (data) {
+    // gjnote: put socket into a room (channel). Name is passed in by the client. 
+    // Not sure if this is used or not
     socket.join(data.channel);
   });
 });
@@ -42,11 +48,14 @@ async.retry(
       return console.error("Giving up");
     }
     console.log("Connected to db");
+    // gjnote: start the infinite loop of polling votes from the DB
     getVotes(client);
   }
 );
 
 function getVotes(client) {
+  // gjnote: getting result from db, process it, and then emit an "score" event to all the sockets with 
+  // namespace "/"
   client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function(err, result) {
     if (err) {
       console.error("Error performing query: " + err);
