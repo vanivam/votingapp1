@@ -3,5 +3,11 @@
     "activityBar.background": "#4D164D",
     "titleBar.activeBackground": "#6C1E6C",
     "titleBar.activeForeground": "#FDF8FD"
+  },
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   }
 }
