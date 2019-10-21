@@ -25,6 +25,7 @@ namespace Worker
                 var keepAliveCommand = pgsql.CreateCommand();
                 keepAliveCommand.CommandText = "SELECT 1";
 
+                // gjnote: infinite loop queyring redis and then write it to the db.
                 var definition = new { vote = "", voter_id = "" };
                 while (true)
                 {
