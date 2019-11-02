@@ -15,4 +15,5 @@ ADD . /app
 EXPOSE 80
 
 # Define our command to be run when launching the container
+# gjnote: run the app and use stdout as log file and access log
 CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "0"]
